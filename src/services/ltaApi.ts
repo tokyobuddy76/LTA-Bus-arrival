@@ -240,7 +240,8 @@ export async function getBusArrivals(
   // If user provided a custom backend API endpoint, attempt live fetch!
   if (customApiUrl && customApiUrl.trim().length > 0) {
     try {
-      const url = new URL(customApiUrl);
+      const base = typeof window !== 'undefined' ? window.location.origin : 'http://localhost:3000';
+      const url = new URL(customApiUrl, base);
       url.searchParams.set('BusStopCode', busStopCode);
 
       const headers: Record<string, string> = {

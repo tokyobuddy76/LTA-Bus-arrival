@@ -47,8 +47,9 @@ export const BackendConnectorModal: React.FC<BackendConnectorModalProps> = ({
     setTestMessage('Pinging backend endpoint...');
 
     try {
-      const url = new URL(apiUrl);
-      url.searchParams.set('BusStopCode', '08057');
+      const base = typeof window !== 'undefined' ? window.location.origin : 'http://localhost:3000';
+      const url = new URL(apiUrl, base);
+      url.searchParams.set('BusStopCode', '83139');
 
       const headers: Record<string, string> = { Accept: 'application/json' };
       if (apiKey) {
@@ -196,20 +197,29 @@ app.listen(5000, () => console.log('LTA Proxy listening on port 5000'));`;
           {mode === 'custom_api' && (
             <div className="space-y-4 bg-slate-800/40 border border-slate-700/60 rounded-xl p-4">
               <div>
-                <label className="block text-xs font-semibold text-slate-300 mb-1.5">
-                  Backend API Base URL
-                </label>
+                <div className="flex items-center justify-between mb-1.5">
+                  <label className="text-xs font-semibold text-slate-300">
+                    Backend API Base URL
+                  </label>
+                  <button
+                    type="button"
+                    onClick={() => setApiUrl('/api/busarrival')}
+                    className="text-[11px] text-emerald-400 hover:text-emerald-300 font-mono underline"
+                  >
+                    Use Serverless Proxy (/api/busarrival)
+                  </button>
+                </div>
                 <input
                   type="text"
                   value={apiUrl}
                   onChange={(e) => setApiUrl(e.target.value)}
-                  placeholder="e.g. http://localhost:5000/api/bus-arrival or /api/bus-arrival"
+                  placeholder="e.g. /api/busarrival or http://localhost:5000/api/bus-arrival"
                   className="w-full px-3.5 py-2 rounded-lg bg-slate-900 border border-slate-700 text-sm text-slate-100 placeholder-slate-500 font-mono focus:outline-none focus:border-emerald-500"
                 />
                 <p className="text-[11px] text-slate-400 mt-1">
                   The frontend will make calls to:{' '}
                   <span className="font-mono text-emerald-400">
-                    {apiUrl || 'http://localhost:5000/api/bus-arrival'}?BusStopCode=08057
+                    {apiUrl || '/api/busarrival'}?BusStopCode=83139
                   </span>
                 </p>
               </div>

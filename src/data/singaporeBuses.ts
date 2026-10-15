@@ -261,6 +261,15 @@ export const SINGAPORE_BUS_STOPS: BusStop[] = [
     MrtLines: ['EWL'],
     Region: 'East',
   },
+  {
+    BusStopCode: '83139',
+    RoadName: 'Marine Parade Rd',
+    Description: 'Opp Laguna Park',
+    Latitude: 1.3094,
+    Longitude: 103.9276,
+    MrtLines: ['TEL'],
+    Region: 'East',
+  },
 
   // NORTH-EAST REGION
   {
@@ -547,6 +556,7 @@ export const BUS_STOP_SERVICES_MAP: Record<string, string[]> = {
   '77009': ['857', '36'],
   '81111': ['65'],
   '95029': ['36'],
+  '83139': ['190', '14', '65', '166'],
   '66009': ['147'],
   '67009': ['147', '857'],
   '65009': ['857'],
